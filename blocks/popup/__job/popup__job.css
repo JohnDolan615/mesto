@@ -1,0 +1,16 @@
+.popup__job{
+    margin: 0;
+    padding: 0;
+    margin-top: 30px;
+    width: 358px;
+    height: 27px;
+    border: 1px;
+    border-bottom: 1px solid #000;
+    grid-column: 2/3;
+    outline: none;
+}
+@media screen and (max-width: 767px) {
+    .popup__job{
+        width: 238px;
+    }
+}
