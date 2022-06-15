@@ -1,0 +1,11 @@
+.elements__place {
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    align-items: center;
+    margin-top: 25px;
+    margin-bottom: 31px;
+    /* margin-left: 21px;
+    margin-right: 15px; */
+    width: 100%;
+}

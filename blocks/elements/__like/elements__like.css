@@ -1,0 +1,19 @@
+.elements__like {
+    margin: 0;
+    padding: 0;
+    margin-right: 30px;
+    width: 22px;
+    height: 19px;
+    flex-shrink: 0;
+    background-image: url(../../../images/like.svg);
+    border: none;
+    background-color: #fff;
+    cursor: pointer;
+}
+.elements__like:hover {
+    opacity: 0.5;
+}
+.elements__like:active {
+    background-image: url(../../../images/Union.svg);
+    opacity: 1;
+}
