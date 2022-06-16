@@ -8,12 +8,10 @@ function openPopup(event) {
     popup.classList.add('popup__opened')
 }
 profileEdit.addEventListener('click', openPopup);
-
 function closePopup(event) {
     popup.classList.remove('popup__opened')
 }
 popupClose.addEventListener('click', closePopup);
-
 function addName() {
     let name = document.querySelector('.popup__autor');
     let about = document.querySelector('.popup__job');
