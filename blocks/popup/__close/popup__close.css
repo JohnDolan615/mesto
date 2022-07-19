@@ -3,20 +3,23 @@
     position: absolute;
     width: 32px;
     height: 32px;
-    top: -40px;
-    right: -40px;
-    background-color: transparent;
+    color: white;
+    font-size: 48px;
+    left: 438px;
+    top: -39px;
+    background-color: black;
     border: none;
-    cursor: pointer;
+    background-repeat: no-repeat;
 }
 .popup__close:hover{
     opacity: 0.6;
+    cursor: pointer;
 }
 @media screen and (max-width: 767px){
     .popup__close {
-        right: 0;
-        width: 20px;
-        height: 20px;
-        background-size: 20px 20px;
+        top: -36px;
+        font-size: 27px;
+        left: 262px;
+        padding: 0px;
     }
 }

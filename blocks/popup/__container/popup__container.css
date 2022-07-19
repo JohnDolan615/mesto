@@ -1,16 +1,19 @@
-.popup__container{
-    margin: auto;
-    width: 430px;
-    position: relative;
-    display: grid;
+.popup__container {
+    display: flex;
+    justify-content: center;
     flex-direction: column;
-    grid-template-columns: 36px 358px 36px;
-    background-color: #fff;
+    align-items: center;
+    position: relative;
+    box-sizing: border-box;
     border-radius: 10px;
+    width: 430px;
+    padding: 34px 36px 37px 36px;
+    background-color: white;
 }
-@media screen and (max-width: 767px){
-    .popup__container{
-        grid-template-columns: 22px 238px 22px;
+
+@media screen and (max-width: 767px) {
+    .popup__container {
         width: 282px;
+        padding: 25px 22px;
     }
 }
