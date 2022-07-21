@@ -5,7 +5,7 @@
     height: 24px;
     box-sizing: border-box;
     border: 1px solid #FFFFFF;
-    background: #000;
+    background: rgb(255,255,255,0);
     display: flex;
     margin-left: 18px;
     justify-content: center;
@@ -18,11 +18,12 @@
     opacity: 0.6;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 880px) {
     .profile__edit {
         width: 18px;
         height: 18px;
         margin-left: 10px;
         margin-bottom: 0;
+        background-size: 7.5px 7.5px;
     }
 }
