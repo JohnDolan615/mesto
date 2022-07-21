@@ -1,13 +1,13 @@
 .elements__like {
     margin: 0;
     padding: 0;
-    margin-right: 30px;
+    margin-right: 20px;
     width: 22px;
     height: 19px;
     flex-shrink: 0;
     background-image: url(../../../images/like.svg);
     border: none;
-    background-color: #fff;
+    background-color: rgb(255,255,255,0);
     cursor: pointer;
 }
 .elements__like:hover {
