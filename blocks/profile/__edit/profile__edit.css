@@ -1,17 +1,16 @@
 .profile__edit {
-    margin: 0;
     padding: 0;
+    background: none;
+    background-image: url(../../../images/pen.svg);
+    background-size: 10px 10px;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-left: 18px;
+    box-sizing: border-box;
+    transition: 0.3s ease-out;
     width: 24px;
     height: 24px;
-    box-sizing: border-box;
-    border: 1px solid #FFFFFF;
-    background: rgb(255,255,255,0);
-    display: flex;
-    margin-left: 18px;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    margin-bottom: 7px;
+    border: 1px solid #fff; 
 }
 
 .profile__edit:hover {
@@ -23,7 +22,6 @@
         width: 18px;
         height: 18px;
         margin-left: 10px;
-        margin-bottom: 0;
         background-size: 7.5px 7.5px;
     }
 }
