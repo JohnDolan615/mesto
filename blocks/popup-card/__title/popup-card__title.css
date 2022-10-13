@@ -1,0 +1,18 @@
+.popup-card__title{
+    margin-top: 0;
+    color: #000;
+    text-align: left;
+    margin-bottom: 10px;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 29px;
+    width: 100%;
+}
+
+@media screen and (max-width: 880px){
+    .popup-card__title{
+        font-size: 18px;
+        line-height: 22px;
+        margin-bottom: 40px;
+    }
+}

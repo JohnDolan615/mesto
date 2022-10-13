@@ -10,14 +10,14 @@ const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
 const popupCard = document.querySelector('.popup-card');
 const profileAddCard = document.querySelector('.profile__add');
-const popupCardAddClose = popupCard.querySelector('.popup__close');
+const popupCardAddClose = popupCard.querySelector('.popup-card__close');
 const popupImg = document.querySelector('.popup-img');
-const elementClose = popupImg.querySelector('.popup__close-img');
+const elementClose = popupImg.querySelector('.popup-img__close');
 const elementsList = document.querySelector('.elements');
 const itemsTemplate = document.querySelector('.list-item-template').content;
-const titleElementForm = popupCard.querySelector('.form__input_name');
-const inputElementForm = popupCard.querySelector('.form__input_url');
-const submitElementForm = popupCard.querySelector('.popup__form');
+const titleElementForm = popupCard.querySelector('.popup-card__input_name');
+const inputElementForm = popupCard.querySelector('.popup-card__input_url');
+const submitElementForm = popupCard.querySelector('.popup-card__form');
 
 
 const togglePopup = () => {
