@@ -16,7 +16,7 @@
                 <div class="profile__info">
                     <div class="profile__name">
                         <h1 class="profile__title">Жак-Ив&nbsp;Кусто</h1>
-                        <button type="button" class="profile__edit"></button>
+                        <button type="button" class="profile__edit" aria-label="edit"></button>
                     </div>
                     <p class="profile__subtitle">Исследователь океана</p>
                 </div>
@@ -27,37 +27,37 @@
         <footer class="footer">
             <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
         </footer>
-        <div class="popup">
+        <div class="popup" id="popup-profile">
             <div class="popup__container">
-                <button type="button" class="popup__close"></button>
+                <button type="button" class="popup__close" id="popup-profile__close"></button>
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <form class="popup__form" name="editProfileForm">
-                    <input class="popup__form-box popup__form-box_type_author" type="text" name="author" required placeholder="Ваше имя">
-                    <input class="popup__form-box popup__form-box_type_job" type="text" name="job" required placeholder="Ваша должность">
+                <form class="popup__form" name="editProfileForm" id="popup-profile__form">
+                    <input class="popup__form-box" id="popup-profile__form-box_type_author" type="text" name="author" required placeholder="Ваше имя">
+                    <input class="popup__form-box" id="popup-profile__form-box_type_job" type="text" name="job" required placeholder="Ваша должность">
                     <button type="submit" class="popup__save">Сохранить</button>
                 </form>
             </div>
         </div>
-        <div class="popup-card">
-            <div class="popup-card__container">
-                <button type="button" class="popup-card__close"></button>
-                <h2 class="popup-card__title">Новое место</h2>
-                <form class="popup-card__form" name="editCardForm">
-                    <input class="popup-card__form-box popup-card__input-name" type="text" name="mesto" required placeholder="Название">
-                    <input class="popup-card__form-box popup-card__input-url" type="text" name="url" required placeholder="Ссылка на картинку">
-                    <button type="submit" class="popup-card__save">Создать</button>
+        <div class="popup" id="popup-add">
+            <div class="popup__container">
+                <button type="button" class="popup__close" id="popup-add__close"></button>
+                <h2 class="popup__title">Новое место</h2>
+                <form class="popup__form" name="editCardForm" id="popup-add__form">
+                    <input class="popup__form-box" id="popup-add__input-name" type="text" name="mesto" required placeholder="Название">
+                    <input class="popup__form-box" id="popup-add__input-url" type="url" name="url" required placeholder="Ссылка на картинку">
+                    <button type="submit" class="popup__save">Создать</button>
                 </form>
             </div>
         </div>
-        <div class="popup-img">
-            <div class="popup-img__container">
-                <button type="button" class="popup-img__close"></button>
-                <img src="https://images.unsplash.com/photo-1584390606727-598a42bc0f76?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" alt="image" class="popup-img__image">
-                <p class='popup-img__text'>текст</p>
+        <div class="popup" id="popup-img">
+            <div class="popup__img-container">
+                <button type="button" class="popup__close" id="popup-img__close"></button>
+                <img src="#" alt="image" class="popup__image">
+                <p class='popup__text'>текст</p>
             </div>
         </div>
 
-        <template class= 'list-item-template'>
+        <template class= 'template-elements'>
             <li class="elements__card">
                 <img class="elements__photo" src="https://images.unsplash.com/photo-1665412019489-1928d5afa5cc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2865&q=80" alt=""/>
                 <div class="elements__place">
