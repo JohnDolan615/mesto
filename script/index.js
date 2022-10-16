@@ -23,12 +23,12 @@ const popupImgText = popupImg.querySelector('.popup__text');
 
 
 
-const openPopup = (evtPopup) => {
-    evtPopup.classList.add('popup_opened');
+const openPopup = (popup) => {
+    popup.classList.add('popup_opened');
 };
 
-const closePopup = (evtPopup) => {
-    evtPopup.classList.remove('popup_opened');
+const closePopup = (popup) => {
+    popup.classList.remove('popup_opened');
 };
 
 profileEditButton.addEventListener('click', () => {
@@ -66,7 +66,7 @@ formElementProfile.addEventListener('submit', formProfileSubmitHandler);
         templateCloneCard.querySelector('.elements__text').textContent = text.name;
         templateCloneCard.querySelector('.elements__photo').src = text.link;
         templateCloneCard.querySelector('.elements__photo').alt = text.alt;
-    setEventListener(templateCloneCard);
+    setCardEventListener(templateCloneCard);
     return templateCloneCard;
 
  };
@@ -90,12 +90,12 @@ const clearInputForm = () => {
     newCardUrl.reset();
 };
 
-function setEventListener(templateCloneCard) {
-    const handleLikeButton = templateCloneCard.querySelector('.elements__like');
+function setCardEventListener(Card) {
+    const handleLikeButton = Card.querySelector('.elements__like');
     handleLikeButton.addEventListener('click', likeButton);
-    const handleRemoveButton = templateCloneCard.querySelector('.elements__delete');
+    const handleRemoveButton = Card.querySelector('.elements__delete');
     handleRemoveButton.addEventListener('click', deleteElement);
-    const handleOpenPopupImg = templateCloneCard.querySelector('.elements__photo');
+    const handleOpenPopupImg = Card.querySelector('.elements__photo');
     handleOpenPopupImg.addEventListener('click', openPopupImg);
 };
 
