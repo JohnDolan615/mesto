@@ -13,29 +13,29 @@ const clearErrorMessages = (popup) => {
   const formErrorList = popup.querySelectorAll(params.errorSelector);
   const formsInputList = popup.querySelectorAll(params.inputSelector);
   
-  formErrorList.forEach(errorElement => {
-    errorElement.textContent = '';
-    errorElement.classList.remove(params.errorClass);
+  formErrorList.forEach(erElement => {
+    erElement.textContent = '';
+    erElement.classList.remove(params.errorClass);
   });
-  formsInputList.forEach(formInputElement => {
-    formInputElement.classList.remove(params.inputErrorClass);
+  formsInputList.forEach(formBoxElement => {
+    formBoxElement.classList.remove(params.inputErrorClass);
   });
 };
   
   
-const setSubmitBtnState = (params, buttonElement, isEnabled) => {
+const setSubmitBtnState = (params, btnElement, isEnabled) => {
   if (!isEnabled) {
-    buttonElement.setAttribute('disabled', true);
-    buttonElement.classList.add(params.inactiveButtonClass);
+    btnElement.setAttribute('disabled', true);
+    btnElement.classList.add(params.inactiveButtonClass);
   } else {
-    buttonElement.removeAttribute('disabled');
-    buttonElement.classList.remove(params.inactiveButtonClass);
+    btnElement.removeAttribute('disabled');
+    btnElement.classList.remove(params.inactiveButtonClass);
   }
 };
   
-const showInputError = (params, formElement, inputElement, errorMessage) => {
-  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.add(params.inputErrorClass);
+const showInputError = (params, formElement, boxElement, errorMessage) => {
+  const errorElement = formElement.querySelector(`#${boxElement.id}-error`);
+  boxElement.classList.add(params.inputErrorClass);
   // console.log(inputElement);
   // console.log(errorElement);
   errorElement.classList.add(params.errorClass);
@@ -43,20 +43,20 @@ const showInputError = (params, formElement, inputElement, errorMessage) => {
 };
   
 
-const hideInputError = (params, formElement, inputElement) => {
-  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.remove(params.inputErrorClass);
+const hideInputError = (params, formElement, boxElement) => {
+  const errorElement = formElement.querySelector(`#${boxElement.id}-error`);
+  boxElement.classList.remove(params.inputErrorClass);
     
   errorElement.classList.remove(params.errorClass);
   errorElement.textContent = '';
 };
   
 
-const checkInputValidity = (params, formElement, inputElement) => {
-  if (!inputElement.validity.valid) {
-    showInputError(params, formElement, inputElement, inputElement.validationMessage);
+const checkInputValidity = (params, formElement, boxElement) => {
+  if (!boxElement.validity.valid) {
+    showInputError(params, formElement, boxElement, boxElement.validationMessage);
   } else {
-    hideInputError(params, formElement, inputElement);
+    hideInputError(params, formElement, boxElement);
   }
 };
   

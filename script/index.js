@@ -1,5 +1,5 @@
 
-const popupList = document.querySelector('.popup');
+const popupList = document.querySelectorAll('.popup');
 const popupProfile = document.querySelector('#popup-profile');
 const popupCloseProfile = popupProfile.querySelector('#popup-profile__close');
 const formElementProfile = popupProfile.querySelector('#popup-profile__form');
@@ -129,9 +129,15 @@ const closePopupImg = () => {
 cardForm.addEventListener('submit', addCard);
 elementClose.addEventListener('click', closePopupImg);
 
-const handlePopupOverlayClick = () => {
+const handlePopupOverlayClick = (e) => {
     if (e.currentTarget == e.target) {
         closePopup(e.target)
+    }
+};
+
+const handlePopupOverlayClickImg = (e) => {
+    if (e.currentTarget == e.target) {
+        closePopupImg();
     }
 };
 
@@ -148,9 +154,15 @@ const handleEscapeKeyPressPopupImg = (e) => {
     if (e.key === "Escape") {
       const openedPopupImg = document.querySelector('.popup_opend-img');
       if (openedPopupImg) {
-        closePopup(openedPopupImg);
+        closePopupImg();
       } 
     }
 };
 
+popupList.forEach(popupElement => {
+    popupElement.addEventListener('click', handlePopupOverlayClick);
+});
 
+popupList.forEach(popupElement => {
+    popupElement.addEventListener('click', handlePopupOverlayClickImg);
+});
