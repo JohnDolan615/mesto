@@ -3,7 +3,7 @@ const params = {
   inputSelector: '.popup__form-box',
   errorSelector: '.error',
   submitButtonSelector: '.popup__save',
-  inactiveButtonClass: 'form__save_disabled',
+  inactiveButtonClass: 'popup__save_disabled',
   inputErrorClass: 'popup__form-box_type_error',
   errorClass: 'error_visible'
 };
