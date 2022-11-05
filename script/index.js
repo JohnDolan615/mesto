@@ -1,4 +1,6 @@
-
+import { initialCards } from "./cards.js";
+import Card from "./Сard.js";
+import {openPopup, closePopup, openPopupImg, handleEscapeKeyPress} from "./functions.js";
 const popupList = document.querySelectorAll('.popup');
 const popupProfile = document.querySelector('#popup-profile');
 const popupCloseProfile = popupProfile.querySelector('#popup-profile__close');
@@ -13,24 +15,14 @@ const profileAddCard = document.querySelector('.profile__add');
 const popupCardAddClose = popupCard.querySelector('#popup-add__close');
 const popupImg = document.querySelector('#popup-img');
 const elementClose = popupImg.querySelector('#popup-img__close');
-const elementsList = document.querySelector('.elements');
-const itemTemplate = document.querySelector('.template-elements').content;
 const newCardInput = popupCard.querySelector('#popup-add__input-name');
 const newCardUrl = popupCard.querySelector('#popup-add__input-url');
 const cardForm = popupCard.querySelector('#popup-add__form');
-const popupImgImg = popupImg.querySelector('.popup__image');
-const popupImgText = popupImg.querySelector('.popup__text');
 const cardPopupForm = document.getElementById('popup-add__form');
+const cardsContaner = document.querySelector('.elements');
 
-const openPopup = (popup) => {
-    popup.classList.add('popup_opened');
-    document.addEventListener('keydown', handleEscapeKeyPress);
-};
 
-const closePopup = (popup) => {
-    popup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', handleEscapeKeyPress);
-};
+
 
 profileEditButton.addEventListener('click', () => {
     author.value = profileTitle.textContent;
@@ -61,28 +53,24 @@ const formProfileSubmitHandler = (evt) => {
 formElementProfile.addEventListener('submit', formProfileSubmitHandler);
 
 
-
- const createCard = (text) => {
-    const templateCloneCard = itemTemplate.cloneNode(true);
-    templateCloneCard.querySelector('.elements__text').textContent = text.name;
-    const templateCloneCardPhoto = templateCloneCard.querySelector('.elements__photo');
-    templateCloneCardPhoto.src = text.link;
-    templateCloneCardPhoto.alt = text.alt;
-    setCardEventListener(templateCloneCard);
-    return templateCloneCard;
- };
-
- const renderCard = (item) => {
-    elementsList.prepend(item);
+ const renderCard = (item, contaner) => {
+    contaner.prepend(item);
 };
 
 initialCards.forEach((evt) => {
-    renderCard(createCard (evt));
+    const card = new Card (evt, '.template-elements', '.elements__photo');
+    renderCard(card.createCard(), cardsContaner);
 });
  
 const addCard = (event) => {
     event.preventDefault();
-    renderCard(createCard({name:  newCardInput.value, link: newCardUrl.value}));
+    const cardData = {
+        name: newCardInput.value,
+        link: newCardUrl.value
+    }
+    const card = new Card(cardData, '.template-elements', '.elements__photo');
+
+    renderCard(card.createCard(), cardsContaner);
     closePopup(popupCard);
     cardPopupForm.reset();
 };
@@ -97,20 +85,6 @@ function setCardEventListener(card) {
 };
 
 
-function likeButton (evt) {
-    evt.target.closest('.elements__like').classList.toggle('elements__like_active'); 
-};
-
-function deleteElement (evt) {
-    evt.target.closest('.elements__card').remove(); 
-};
-
-function openPopupImg (evt) {
-    openPopup(popupImg);
-    popupImgImg.src = evt.target.closest('.elements__photo').src;
-    popupImgImg.alt = evt.target.closest('.elements__photo').alt;
-    popupImgText.textContent = evt.target.closest('.elements__card').querySelector('.elements__text').textContent;
-};
 
 cardForm.addEventListener('submit', addCard);
 elementClose.addEventListener('click', () => {
@@ -123,15 +97,9 @@ const handlePopupOverlayClick = (e) => {
     }
 };
 
-const handleEscapeKeyPress = (e) => {
-    if (e.key === "Escape") {
-      const openedPopup = document.querySelector('.popup_opened');
-      if (openedPopup) {
-        closePopup(openedPopup);
-      } 
-    }
-};
 
 popupList.forEach(popupElement => {
     popupElement.addEventListener('click', handlePopupOverlayClick);
 });
+
+
