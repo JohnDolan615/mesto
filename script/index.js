@@ -1,6 +1,7 @@
 import { initialCards } from "./cards.js";
 import Card from "./Сard.js";
-import {openPopup, closePopup, openPopupImg, handleEscapeKeyPress} from "./functions.js";
+import {openPopup, closePopup, openPopupImg} from "./functions.js";
+import { FormValidator } from "./FormValidator.js";
 const popupList = document.querySelectorAll('.popup');
 const popupProfile = document.querySelector('#popup-profile');
 const popupCloseProfile = popupProfile.querySelector('#popup-profile__close');
@@ -21,10 +22,24 @@ const cardForm = popupCard.querySelector('#popup-add__form');
 const cardPopupForm = document.getElementById('popup-add__form');
 const cardsContaner = document.querySelector('.elements');
 
+const params = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__form-box',
+    errorSelector: '.error',
+    submitButtonSelector: '.popup__save',
+    inactiveButtonClass: 'popup__save_disabled',
+    inputErrorClass: 'popup__form-box_type_error',
+    errorClass: 'error_visible'
+  };
 
+const addCardValidation = new FormValidator(params, popupCard);
+const profileValidation = new FormValidator(params, popupProfile);
 
+addCardValidation.enableValidation();
+profileValidation.enableValidation();
 
 profileEditButton.addEventListener('click', () => {
+    profileValidation.activeButton();
     author.value = profileTitle.textContent;
     job.value = profileSubtitle.textContent;
     openPopup(popupProfile);
@@ -36,6 +51,7 @@ popupCloseProfile.addEventListener('click', () => {
 
 
 profileAddCard.addEventListener('click', () => {
+    addCardValidation._resetBoxs(popupCard);
     openPopup(popupCard);
 });
 
@@ -73,17 +89,8 @@ const addCard = (event) => {
     renderCard(card.createCard(), cardsContaner);
     closePopup(popupCard);
     cardPopupForm.reset();
+    addCardValidation.inactiveButton();
 };
-
-function setCardEventListener(card) {
-    const handleLikeButton = card.querySelector('.elements__like');
-    handleLikeButton.addEventListener('click', likeButton);
-    const handleRemoveButton = card.querySelector('.elements__delete');
-    handleRemoveButton.addEventListener('click', deleteElement);
-    const handleOpenPopupImg = card.querySelector('.elements__photo');
-    handleOpenPopupImg.addEventListener('click', openPopupImg);
-};
-
 
 
 cardForm.addEventListener('submit', addCard);
@@ -101,5 +108,6 @@ const handlePopupOverlayClick = (e) => {
 popupList.forEach(popupElement => {
     popupElement.addEventListener('click', handlePopupOverlayClick);
 });
+
 
 
