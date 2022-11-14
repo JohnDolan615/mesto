@@ -4,7 +4,7 @@ export class FormValidator{
         this._formElementType = formElementType;
         this._boxList = Array.from(this._formElementType.querySelectorAll(this._param.inputSelector));
         this._buttonSubmit = this._formElementType.querySelector(this._param.submitButtonSelector);
-    }    
+    }       
 
 
     _showInputError = (boxElement, errorMessage) => {
@@ -12,7 +12,7 @@ export class FormValidator{
     
         boxElement.classList.add(this._param.inputErrorClass);
         errorElement.textContent = errorMessage;
-    
+
         errorElement.classList.add(this._param.errorClass);
     };
 
@@ -37,13 +37,16 @@ export class FormValidator{
         })
     }
 
-    _resetBoxs = () =>{
-        const boxs = Array.from(this._formElementType.querySelectorAll('.popup__form-box'));
-        boxs.forEach((boxElement) => {
-            const errorElement = document.getElementById(`${boxElement.id}-error`);
-            boxElement.classList.remove('popup__form-box_type_error');
-            errorElement.textContent = '';
-        })
+    resetBoxs = () =>{
+        // const boxs = Array.from(this._formElementType.querySelectorAll('.popup__form-box'));
+        // boxs.forEach((boxElement) => {
+        //     const errorElement = document.getElementById(`${boxElement.id}-error`);
+        //     boxElement.classList.remove('popup__form-box_type_error');
+        //     errorElement.textContent = '';
+        // })
+        this._boxList.forEach((boxElement) => {
+            this._hideInputError(boxElement);
+          });
     }
 
     inactiveButton = () =>{
@@ -75,9 +78,6 @@ export class FormValidator{
     }
 
     enableValidation = () => {
-        this._formElementType.addEventListener('submit', (evt) => {
-            evt.preventDefault();
-        })
         this._setEventListeners();
     }
 }

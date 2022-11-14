@@ -3,10 +3,9 @@
 import {openPopupImg} from "./functions.js";
 
 export default class Card {
-    constructor(card, templateSelector, imgSelector){
+    constructor(card, templateSelector){
         this._card = card;
         this._templateSelector = templateSelector; 
-        this._imgSelector = imgSelector;
     }
 
     _getTemplate(){
@@ -22,7 +21,7 @@ export default class Card {
     createCard() {
         this._element = this._getTemplate();
         this._setEventListeners();
-        const img = this._element.querySelector(this._imgSelector);
+        const img = this._element.querySelector('.elements__photo');
         img.src = this._card.link;
         img.alt = this._card.alt;
         this._element.querySelector('.elements__text').textContent = this._card.name;
@@ -42,10 +41,13 @@ export default class Card {
     }
 
     _setEventListeners(){
-        this._element.querySelector('.elements__photo').addEventListener('click', () => {
+        this._imgLikeButton = this._element.querySelector('.elements__like');
+        this._cardImage = this._element.querySelector('.elements__photo');
+
+        this._cardImage.addEventListener('click', () => {
             this._handleOpenImg(this._card.name, this._card.link);
         });
-        this._element.querySelector('.elements__like').addEventListener('click', () => {
+        this._imgLikeButton.addEventListener('click', () => {
             this._likeButton();
         });
         this._element.querySelector('.elements__delete').addEventListener('click', () => {
