@@ -1,11 +1,8 @@
-
-
-import {openPopupImg} from "./functions.js";
-
 export default class Card {
-    constructor(card, templateSelector){
+    constructor(card, templateSelector, handleCardClick){
         this._card = card;
         this._templateSelector = templateSelector; 
+        this._handleCardClick = handleCardClick;
     }
 
     _getTemplate(){
@@ -29,11 +26,7 @@ export default class Card {
     }
 
     _likeButton(){
-        this._element.querySelector('.elements__like').classList.toggle('elements__like_active'); 
-    }
-
-    _handleOpenImg(){
-        openPopupImg(this._card.name, this._card.link);
+        this._imgLikeButton.classList.toggle('elements__like_active'); 
     }
 
     _removeButton(){
@@ -45,7 +38,7 @@ export default class Card {
         this._cardImage = this._element.querySelector('.elements__photo');
 
         this._cardImage.addEventListener('click', () => {
-            this._handleOpenImg(this._card.name, this._card.link);
+            this._handleCardClick({'name': this._card.name, 'link': this._card.link});
         });
         this._imgLikeButton.addEventListener('click', () => {
             this._likeButton();
