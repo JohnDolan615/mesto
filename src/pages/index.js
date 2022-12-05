@@ -1,12 +1,13 @@
-import "../pages/index.css";
-import params from "./params.js";
-import { initialCards } from "./cards.js";
-import Card from "./Сard.js";
-import { FormValidator } from "./FormValidator.js";
-import PopupWithForm from "./PopupWithForm.js";
-import PopupWithImage from "./PopupWithImage.js";
-import Section from "./Section.js";
-import UserInfo from "./UserInfo.js";
+import "./index.css";
+
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import Section from "../components/Section.js";
+import Card from "../components/Сard.js";
+import { FormValidator } from "../components/FormValidator.js";
+import UserInfo from "../components/UserInfo.js";
+import params from "../utils/params.js";
+import { initialCards } from "../utils/cards.js";
 
 const cards = document.querySelector('.elements');
 const popupProfile = document.querySelector('#popup-profile');

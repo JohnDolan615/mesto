@@ -1,5 +1,5 @@
 import Popup from "./Popup.js";
-import params from "./params.js";
+import params from "../utils/params.js";
 
 export default class PopupWithForm extends Popup{
   constructor(handleSubmitClick, popupSelector) {
