@@ -33,12 +33,13 @@ export default class Card {
         this._element.remove();
     }
 
+
     _setEventListeners(){
         this._imgLikeButton = this._element.querySelector('.elements__like');
         this._cardImage = this._element.querySelector('.elements__photo');
 
         this._cardImage.addEventListener('click', () => {
-            this._handleCardClick({'name': this._card.name, 'link': this._card.link});
+            this._handleCardClick({name: this._card.name, link: this._card.link});
         });
         this._imgLikeButton.addEventListener('click', () => {
             this._likeButton();
@@ -46,6 +47,9 @@ export default class Card {
         this._element.querySelector('.elements__delete').addEventListener('click', () => {
             this._removeButton();
         });
+        // this._element.querySelector('.elements__photo').addEventListener('click', () => {
+        //     this._openImagePopup();
+        // });
     }
 
 }
