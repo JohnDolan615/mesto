@@ -5,14 +5,14 @@ export default class UserInfo {
   }
 
   getUserInfo() {
-  return {
+    return {
       profileAuthor: this._profileAuthor.textContent,
       profileJob: this._profileJob.textContent
     }
   }
 
   setUserInfo(data) {
-    this._profileAuthor.textContent = data.inputprofileAuthor;
-    this._profileJob.textContent = data.inputProfileJob;
+    this._profileAuthor.textContent = data["input-name"];
+    this._profileJob.textContent = data['input-about'];
   }
 }
