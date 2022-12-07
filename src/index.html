@@ -31,7 +31,7 @@
             <div class="popup__container">
                 <button type="button" class="popup__close" id="popup-profile__close" aria-label="Закрытие попапа"></button>
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <form class="popup__form" name="editProfileForm" id="popup-profile__form" method="post">
+                <form class="popup__form" name="editProfileForm" id="popup-profile__form" method="post" novalidate>
                     <input class="popup__form-box" id="popup-profile__form-box_type_author" type="text" name="input-name" required placeholder="Ваше имя" minlength="2" maxlength="40">
                     <span class="error" id="popup-profile__form-box_type_author-error"></span>
                     <input class="popup__form-box" id="popup-profile__form-box_type_job" type="text" name="input-about" required placeholder="Ваша должность" minlength="2" maxlength="200">
@@ -44,7 +44,7 @@
             <div class="popup__container">
                 <button type="button" class="popup__close" id="popup-add__close" aria-label="Закрытие попапа"></button>
                 <h2 class="popup__title">Новое место</h2>
-                <form class="popup__form" name="editCardForm" id="popup-add__form" method="post">
+                <form class="popup__form" name="editCardForm" id="popup-add__form" method="post" novalidate>
                     <input class="popup__form-box" id="popup-add__input-name" type="text" name="name" required placeholder="Название" minlength="2" maxlength="30">
                     <span class="error" id="popup-add__input-name-error"></span>
                     <input class="popup__form-box" id="popup-add__input-url" type="url" name="link" required placeholder="Ссылка на картинку">

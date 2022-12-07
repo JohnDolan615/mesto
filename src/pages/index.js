@@ -17,15 +17,15 @@ const job = popupProfile.querySelector('#popup-profile__form-box_type_job');
 const popupCard = document.querySelector('#popup-add');
 const profileAddCard = document.querySelector('.profile__add');
 
-const section = new Section({
+const section = new Section(
+  '.elements'
+);
+section.renderCard({
   items: initialCards,
   renderer: data => {
       section.addItem(createCard(data));
   },
-},
-  '.elements'
-);
-section.renderCard();
+});
 
 const popupWithImage = new PopupWithImage('#popup-img');
 popupWithImage.setEventListeners();
@@ -49,7 +49,7 @@ const popupCardForm = new PopupWithForm(handleSubmitCard, '#popup-add');
 function handleSubmitCard(evt, data) {
     evt.preventDefault();
     addCard(createCard(data));
-    popupCardForm.close();
+    popupCardForm.closeFormPopup();
 };
 
 popupCardForm.setEventListeners();
