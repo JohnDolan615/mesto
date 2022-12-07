@@ -31,6 +31,7 @@ export default class Card {
 
     _removeButton(){
         this._element.remove();
+        this._element = null;
     }
 
 

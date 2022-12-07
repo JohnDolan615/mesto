@@ -4,8 +4,6 @@ import params from "../utils/params.js";
 export default class PopupWithForm extends Popup{
   constructor(handleSubmitClick, popupSelector) {
     super(popupSelector);
-    
-
     this._handleSubmitClick = handleSubmitClick;
     this._boxs = {};
     this._boxList = Array.from(this._popup.querySelectorAll(params.inputSelector));
@@ -27,8 +25,8 @@ export default class PopupWithForm extends Popup{
     return this._boxs;
   }
   
-  close() {
-    super.close();
+  closeFormPopup() {
+    this.close();
     this._form.reset();
   }
   
