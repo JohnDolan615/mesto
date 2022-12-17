@@ -1,5 +1,3 @@
-
-
 const params = {
     formSelector: '.popup__form',
     inputSelector: '.popup__form-box',
@@ -10,9 +8,8 @@ const params = {
     errorClass: 'error_visible',
     templateCardSelector: '.template-elements',
     spanErrorSelector: '.error',
-    popupBigPhotoSelector: '#popup-img',
-    popupCardSelector: '#popup-add',
     popupCloseSelector: '.popup__close',
+    profileSelector: '.profile',
 };
 
 export default params;

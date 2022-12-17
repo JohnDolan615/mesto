@@ -6,3 +6,7 @@
     height: 120px;
     object-fit: cover;
 }
+
+.profile__avatar:hover + .profile__change-avatar {
+    visibility: visible;
+  }

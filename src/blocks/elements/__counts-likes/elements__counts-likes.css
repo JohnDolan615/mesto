@@ -1,0 +1,8 @@
+.elements__counts-likes{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}

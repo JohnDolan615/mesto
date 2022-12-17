@@ -1,97 +1,208 @@
 import "./index.css";
 
-import PopupWithImage from "../components/PopupWithImage.js";
-import PopupWithForm from "../components/PopupWithForm.js";
-import Section from "../components/Section.js";
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import PopupConfirm from '../components/PopupConfirm.js';
+import Section from '../components/Section.js';
 import Card from "../components/Сard.js";
-import { FormValidator } from "../components/FormValidator.js";
-import UserInfo from "../components/UserInfo.js";
-import params from "../utils/params.js";
-import { initialCards } from "../utils/cards.js";
+import {FormValidator} from "../components/FormValidator.js";
+import UserInfo from '../components/UserInfo.js';
+import params from '../utils/params.js';
+import Api from "../components/Api.js";
+import connect from "../utils/connect.js";
 
-const cards = document.querySelector('.elements');
+const cardsList = document.querySelector('.elements');
+const profileAdd = document.querySelector('.profile__add');
 const popupProfile = document.querySelector('#popup-profile');
-const profileEditButton = document.querySelector('.profile__edit');
-const author = popupProfile.querySelector('#popup-profile__form-box_type_author');
-const job = popupProfile.querySelector('#popup-profile__form-box_type_job');
-const popupCard = document.querySelector('#popup-add');
-const profileAddCard = document.querySelector('.profile__add');
+const popupProfileForm = popupProfile.querySelector(params.formSelector);
+const boxAuthorProfile = popupProfileForm.querySelector('#popup-profile__form-box_type_author');
+const boxJobProfile = popupProfileForm.querySelector('#popup-profile__form-box_type_job');
+const cardAdd = document.querySelector('#popup-add');
+const cardForm = cardAdd.querySelector(params.formSelector);
+const avatarPopup = document.querySelector('#popup-avatar');
+const popupAvatarForm = avatarPopup.querySelector(params.formSelector);
+const profile = document.querySelector(params.profileSelector);
+const buttonProfile = profile.querySelector('.profile__edit');
+const buttonAvatar = profile.querySelector('.profile__change-avatar');
 
-const section = new Section(
-  '.elements'
-);
-section.renderCard({
-  items: initialCards,
+const userInfo = new UserInfo(
+  '.profile__title',
+  '.profile__subtitle',
+  '.profile__avatar');
+
+const cardList = new Section({
   renderer: data => {
-      section.addItem(createCard(data));
-  },
-});
+    cardList.addItem(createCard(data));
+  }
+},
+'.elements'
+);
+
+function isError(error) {
+  console.log(error);
+};
+
+const api = new Api(connect);
+api.getInitialData()
+  .then((data) => {
+    userInfo.renderUserInfo({
+      name: data[0].name,
+      about: data[0].about,
+      myId: data[0]._id,
+      avatar: data[0].avatar
+    });
+    cardList.renderItems({
+      cards: data[1]
+    })
+  })
+  .catch((error) => isError(error))
+
+const popupAvatar = new PopupWithForm(handleSubmitAvatar, '#popup-avatar');
+popupAvatar.setEventListeners();
+
+function renderLoading(popup, isProcess, buttonSubmitText) {
+  const buttonSubmit = popup.querySelector(params.submitButtonSelector);
+  if (isProcess) {
+    buttonSubmit.textContent = "Сохранение...";
+  } else {
+    buttonSubmit.textContent = buttonSubmitText;
+  }
+};
+
+function handleSubmitAvatar(evt, link, buttonSubmitText) {
+  evt.preventDefault();
+  renderLoading(avatarPopup, true, buttonSubmitText)
+  api.setAvatar(link)
+    .then(({ avatar }) => {
+      userInfo.renderAvatar(avatar)
+    })
+    .then(() => {
+      popupAvatar.close()
+      renderLoading(avatarPopup, false, buttonSubmitText)
+    })
+    .catch((error) => isError(error))
+}
 
 const popupWithImage = new PopupWithImage('#popup-img');
 popupWithImage.setEventListeners();
 
-function handleCardClick(data) { 
-  popupWithImage.openPopup(data)
-
+function handleOpenPopupConfirm(card) {
+  popupConfirmDeleteCard.open(card);
 };
 
-function createCard(cardData) {
-  const card = new Card (cardData, params.templateCardSelector, handleCardClick);
-  return card.createCard();
+const popupConfirmDeleteCard = new PopupConfirm(
+  handleSubmitDeleteCard,
+  '#popup-delete',
+);
+
+popupConfirmDeleteCard.setEventListeners();
+
+function handleSubmitDeleteCard(evt, card) {
+  evt.preventDefault();
+  api.deleteCard(card._idCard)
+    .then((response) => {
+      if (response.message = "Пост удалён") {
+        card.deleteCard();
+      }
+    })
+    .then(() => {
+      popupConfirmDeleteCard.close()
+    })
+    .catch((error) => {
+      isError(error);
+    })
+};
+
+function handleCardClick(data) { popupWithImage.open(data) };
+
+function createCard(data) {
+  return new Card(
+    data,
+    params.templateCardSelector,
+    handleCardClick,
+    handleToggleLike,
+    handleOpenPopupConfirm,
+    userInfo.getUserInfo().myId
+  )
+    .createCard();
 };
 
 function addCard(card) {
-  cards.prepend(card);
+  cardsList.prepend(card);
 }
 
-const popupCardForm = new PopupWithForm(handleSubmitCard, '#popup-add');
-
-function handleSubmitCard(evt, data) {
-    evt.preventDefault();
-    addCard(createCard(data));
-    popupCardForm.closeFormPopup();
+const popupAddCard = new PopupWithForm(handleSubmitCard, '#popup-add');
+ 
+function handleSubmitCard(evt, data, buttonSubmitText) {
+  evt.preventDefault();
+  renderLoading(cardAdd, true, buttonSubmitText)
+  api.setCard(data)
+    .then((data) => {
+      addCard(createCard(data));
+    })
+    .then(() => {
+      popupAddCard.close();
+      renderLoading(cardAdd, false, buttonSubmitText);
+    })
+    .catch((error) => isError(error))
 };
 
-popupCardForm.setEventListeners();
+popupAddCard.setEventListeners();
 
 function openPopupCard() {
-    сardValidation.resetBoxs();
-    popupCardForm.open();
+  сardValidation.resetBoxs();
+  popupAddCard.open();
 };
 
-profileAddCard.addEventListener('click', openPopupCard);
+profileAdd.addEventListener('click', openPopupCard);
 
-const popupProfileForm = new PopupWithForm(handleSubmitProfile, '#popup-profile');
+const popupEditProfile = new PopupWithForm(handleSubmitProfile, '#popup-profile');
 
-function handleSubmitProfile(evt, data) {
-    evt.preventDefault();
-    userInfo.setUserInfo(data);
-    console.log(data);
-    popupProfileForm.close();
+function handleSubmitProfile(evt, data, buttonSubmitText) {
+  evt.preventDefault();
+  renderLoading(popupProfile, true, buttonSubmitText)
+  api.setUserInfo(data)
+    .then((data) => {
+      userInfo.setUserInfo(data)
+    })
+    .then(() => {
+      popupEditProfile.close();
+      renderLoading(popupProfile, false, buttonSubmitText);
+    })
+    .catch((error) => isError(error))
 };
 
-popupProfileForm.setEventListeners();
+function handleToggleLike(data) {
+  api.toggleLikeCard(data)
+    .then((response) => {
+      data.card.setLikes(response.likes);
+      data.card._setLike();
+    })
+    .catch((error) => { isError(error) })
+};
+
+popupEditProfile.setEventListeners();
 
 function openPopupProfile() {
   const profileInfo = userInfo.getUserInfo();
-  profileValidation.activeButton();
-  author.value = profileInfo.profileAuthor;
-  job.value = profileInfo.profileJob;
-  popupProfileForm.open();
+  boxAuthorProfile.value = profileInfo.profileName;
+  boxJobProfile.value = profileInfo.profileAbout;
+  profileValidation.resetBoxs();
+  popupEditProfile.open();
 };
 
-const userInfo = new UserInfo('.profile__title', '.profile__subtitle');
+function openPopupAvatar() {
+  avatarValidation.resetBoxs();
+  popupAvatar.open();
+}
 
-profileEditButton.addEventListener('click', openPopupProfile);
+buttonProfile.addEventListener('click', openPopupProfile);
+buttonAvatar.addEventListener('click', openPopupAvatar);
 
-const сardValidation = new FormValidator(params, popupCard);
-const profileValidation = new FormValidator(params, popupProfile);
-
-сardValidation.enableValidation();
+const profileValidation = new FormValidator(params, popupProfileForm);
+const сardValidation = new FormValidator(params, cardForm);
+const avatarValidation = new FormValidator(params, popupAvatarForm)
 profileValidation.enableValidation();
-
-
-
-
-
+сardValidation.enableValidation();
+avatarValidation.enableValidation();
 
