@@ -9,6 +9,7 @@ export class FormValidator{
 
     _showInputError = (boxElement, errorMessage) => {
         const  errorElement = document.getElementById(`${boxElement.id}-error`);
+        
     
         boxElement.classList.add(this._param.inputErrorClass);
         errorElement.textContent = errorMessage;
@@ -20,6 +21,7 @@ export class FormValidator{
     _hideInputError = (boxElement) => {
         const errorElement = document.getElementById(`${boxElement.id}-error`);
         boxElement.classList.remove(this._param.inputErrorClass);
+        console.log(boxElement);
         errorElement.textContent = '';
       };
 
