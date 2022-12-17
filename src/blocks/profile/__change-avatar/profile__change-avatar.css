@@ -11,7 +11,7 @@
     cursor: pointer;
     transition: visibility .3s ease-in-out, background-color .3s ease-in-out;
     z-index: 2;
-    visibility: hidden
+    visibility: hidden;
 }
 
 .profile__change-avatar:hover {
