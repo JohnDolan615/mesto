@@ -2,7 +2,7 @@ import Popup from "./Popup.js";
 import params from "../utils/params.js";
 
 
-export default class PopupWithConfirm extends Popup {
+export default class PopupConfirm extends Popup {
   constructor(handleSubmitDeleteCard, popupSelector) {
     super(popupSelector);
     this._popupForm = this._popup.querySelector(params.formSelector);

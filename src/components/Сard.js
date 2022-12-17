@@ -1,29 +1,27 @@
-
-
 export default class Card {
   constructor(
     objCard,
     templateCardSelector,
     handleCardClick,
     handleToggleLike,
-    handleOpenPopupWithConfirm,
+    handleOpenPopupConfirm,
     myId) {
-    this._likes = objCard.likes; //массив объектов пользователей, поставивших лайк
-    this._idOwner = objCard.owner._id; //id собственника фото
-    this._idCard = objCard._id;// id карточки
-    this._name = objCard.name;// наименование фото
-    this._link = objCard.link;//ссылка на фото
-    this._myId = myId; //мой id
+    this._likes = objCard.likes;
+    this._idOwner = objCard.owner._id;
+    this._idCard = objCard._id;
+    this._name = objCard.name;
+    this._link = objCard.link;
+    this._myId = myId;
     this._handleCardClick = handleCardClick;
     this._handleToggleLike = handleToggleLike;
-    this._handleOpenPopupWithConfirm = handleOpenPopupWithConfirm;
+    this._handleOpenPopupConfirm = handleOpenPopupConfirm;
     this._templateCardSelector = templateCardSelector;
     this._cardElement = this._getTemplate();
     this._photo = this._cardElement.querySelector('.elements__photo');
     this._heart = this._cardElement.querySelector('.elements__like');
     this._count_likes = this._cardElement.querySelector('.elements__count-like');
     this._description = this._cardElement.querySelector('.elements__text');
-    this._remove_button = this._cardElement.querySelector('.elements__delete');
+    this._elementDelete = this._cardElement.querySelector('.elements__delete');
   };
 
   _countLikes() {
@@ -85,7 +83,7 @@ export default class Card {
       this._handleCardClick({ 'name': this._name, 'link': this._link });
     });
     this._heart.addEventListener('click', () => this._toggleLike());
-    this._remove_button.addEventListener('click', () => this._handleOpenPopupWithConfirm(this));
+    this._elementDelete.addEventListener('click', () => this._handleOpenPopupConfirm(this));
   }
 
   createCard() {
@@ -95,7 +93,7 @@ export default class Card {
     this._count_likes.textContent = this._countLikes(this._likes);
     this._setLike(this._likes);
     if (this._idOwner === this._myId) {
-      this._remove_button.classList.add('elements__delete-visable');
+      this._elementDelete.classList.add('elements__delete-visable');
     }
     this._setEventListeners();
 

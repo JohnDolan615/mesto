@@ -1,10 +1,7 @@
-
-
-
 export default class UserInfo {
-  constructor(profileNameSelector, profileAboutSelector, profileAvatarSelector) {
+  constructor(profileNameSelector, profileJobSelector, profileAvatarSelector) {
     this._profileName = document.querySelector(profileNameSelector);
-    this._profileAbout = document.querySelector(profileAboutSelector);
+    this._profileJob = document.querySelector(profileJobSelector);
     this._profileAvatar = document.querySelector(profileAvatarSelector);
     this._myId = "";
   };
@@ -12,7 +9,7 @@ export default class UserInfo {
   getUserInfo() {
     return {
       profileName: this._profileName.textContent,
-      profileAbout: this._profileAbout.textContent,
+      profileAbout: this._profileJob.textContent,
       myId: this._myId,
     };
   };
@@ -22,7 +19,7 @@ export default class UserInfo {
       this._profileName.textContent = name;
     };
     if (about) {
-      this._profileAbout.textContent = about;
+      this._profileJob.textContent = about;
     };
     if (!this._myId) { this._myId = myId };
   };
