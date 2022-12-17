@@ -1,18 +1,40 @@
+
+
+
 export default class UserInfo {
-  constructor(profileAuthorSelector, profileJobSelector) {
-    this._profileAuthor = document.querySelector(profileAuthorSelector);
-    this._profileJob = document.querySelector(profileJobSelector);
-  }
+  constructor(profileNameSelector, profileAboutSelector, profileAvatarSelector) {
+    this._profileName = document.querySelector(profileNameSelector);
+    this._profileAbout = document.querySelector(profileAboutSelector);
+    this._profileAvatar = document.querySelector(profileAvatarSelector);
+    this._myId = "";
+  };
 
   getUserInfo() {
     return {
-      profileAuthor: this._profileAuthor.textContent,
-      profileJob: this._profileJob.textContent
-    }
+      profileName: this._profileName.textContent,
+      profileAbout: this._profileAbout.textContent,
+      myId: this._myId,
+    };
+  };
+
+  setUserInfo({ name, about, myId = "" }) {
+    if (name) {
+      this._profileName.textContent = name;
+    };
+    if (about) {
+      this._profileAbout.textContent = about;
+    };
+    if (!this._myId) { this._myId = myId };
+  };
+
+  renderAvatar(link) {
+    if (link) {
+      this._profileAvatar.src = link
+    };
   }
 
-  setUserInfo(data) {
-    this._profileAuthor.textContent = data["input-name"];
-    this._profileJob.textContent = data['input-about'];
+  renderUserInfo(info) {
+    this.setUserInfo({ name: info.name, about: info.about, myId: info.myId });
+    this.renderAvatar(info.avatar);
   }
-}
+};
