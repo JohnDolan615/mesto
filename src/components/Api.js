@@ -3,7 +3,7 @@ class Api {
       this._connect = connect;
     }
   
-    _onError(result) {
+    _getResponseData(result) {
       if (result.ok) {
         return result.json();
       }
@@ -15,7 +15,7 @@ class Api {
         method: "GET",
         headers: this._connect.headers
       })
-        .then(this._onError)
+        .then(this._getResponseData)
     }
   
     getUser() {
@@ -23,7 +23,7 @@ class Api {
         method: "GET",
         headers: this._connect.headers
       })
-        .then(this._onError)
+        .then(this._getResponseData)
     }
   
     getInitialData() {
@@ -38,7 +38,7 @@ class Api {
         headers: this._connect.headers,
         body: JSON.stringify({name, about})
       })
-        .then(this._onError)
+        .then(this._getResponseData)
     }
   
     setCard(info) {
@@ -47,7 +47,7 @@ class Api {
         headers: this._connect.headers,
         body: JSON.stringify(info)
       })
-        .then(this._onError)
+        .then(this._getResponseData)
     }
   
     toggleLikeCard({ idCard, methodCardLike }) {
@@ -55,7 +55,7 @@ class Api {
         method: methodCardLike,
         headers: this._connect.headers
       })
-        .then(this._onError)
+        .then(this._getResponseData)
     }
   
     deleteCard(idCard) {
@@ -63,7 +63,7 @@ class Api {
         method: "DELETE",
         headers: this._connect.headers
       })
-        .then(this._onError)
+        .then(this._getResponseData)
     }
   
     setAvatar(info) {
@@ -72,7 +72,7 @@ class Api {
         headers: this._connect.headers,
         body: JSON.stringify(info)
       })
-        .then(this._onError)
+        .then(this._getResponseData)
     }
   }
   

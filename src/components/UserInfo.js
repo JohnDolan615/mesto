@@ -27,6 +27,7 @@ export default class UserInfo {
   renderAvatar(link) {
     if (link) {
       this._profileAvatar.src = link
+      this._profileAvatar.alt = link
     };
   }
 

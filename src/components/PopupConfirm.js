@@ -6,9 +6,7 @@ export default class PopupConfirm extends Popup {
   constructor(handleSubmitDeleteCard, popupSelector) {
     super(popupSelector);
     this._popupForm = this._popup.querySelector(params.formSelector);
-    console.log(this._popupForm);
     this._handleSubmitDeleteCard = handleSubmitDeleteCard;
-    console.log(popupSelector);
   }
 
   setEventListeners() {
