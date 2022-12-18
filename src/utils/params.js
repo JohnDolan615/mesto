@@ -10,6 +10,15 @@ const params = {
     spanErrorSelector: '.error',
     popupCloseSelector: '.popup__close',
     profileSelector: '.profile',
+    profileTitle: '.profile__title',
+    profileSubtitle: '.profile__subtitle',
+    profileAvatar: '.profile__avatar',
+    elements: '.elements',
+    popupAvatar: '#popup-avatar',
+    popupImg: '#popup-img',
+    popupDelete: '#popup-delete',
+    popupAdd: '#popup-add',
+    popupProfile: '#popup-profile',
 };
 
 export default params;

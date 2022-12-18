@@ -10,32 +10,27 @@ import UserInfo from '../components/UserInfo.js';
 import params from '../utils/params.js';
 import Api from "../components/Api.js";
 import connect from "../utils/connect.js";
-
-const cardsList = document.querySelector('.elements');
-const profileAdd = document.querySelector('.profile__add');
-const popupProfile = document.querySelector('#popup-profile');
-const popupProfileForm = popupProfile.querySelector(params.formSelector);
-const boxAuthorProfile = popupProfileForm.querySelector('#popup-profile__form-box_type_author');
-const boxJobProfile = popupProfileForm.querySelector('#popup-profile__form-box_type_job');
-const cardAdd = document.querySelector('#popup-add');
-const cardForm = cardAdd.querySelector(params.formSelector);
-const avatarPopup = document.querySelector('#popup-avatar');
-const popupAvatarForm = avatarPopup.querySelector(params.formSelector);
-const profile = document.querySelector(params.profileSelector);
-const buttonProfile = profile.querySelector('.profile__edit');
-const buttonAvatar = profile.querySelector('.profile__change-avatar');
+import {cardsList, 
+  profileAdd, 
+  popupProfileForm, 
+  boxAuthorProfile, 
+  boxJobProfile, 
+  cardForm, 
+  popupAvatarForm, 
+  buttonProfile, 
+  buttonAvatar} from "../utils/constants";
 
 const userInfo = new UserInfo(
-  '.profile__title',
-  '.profile__subtitle',
-  '.profile__avatar');
+  params.profileTitle,
+  params.profileSubtitle,
+  params.profileAvatar);
 
 const cardList = new Section({
   renderer: data => {
     cardList.addItem(createCard(data));
   }
 },
-'.elements'
+params.elements
 );
 
 function isError(error) {
@@ -44,46 +39,37 @@ function isError(error) {
 
 const api = new Api(connect);
 api.getInitialData()
-  .then((data) => {
+  .then(([userData, cardData]) => {
     userInfo.renderUserInfo({
-      name: data[0].name,
-      about: data[0].about,
-      myId: data[0]._id,
-      avatar: data[0].avatar
+      name: userData.name,
+      about: userData.about,
+      myId: userData._id,
+      avatar: userData.avatar
     });
     cardList.renderItems({
-      cards: data[1]
+      cards: cardData
     })
   })
   .catch((error) => isError(error))
 
-const popupAvatar = new PopupWithForm(handleSubmitAvatar, '#popup-avatar');
+const popupAvatar = new PopupWithForm(handleSubmitAvatar, params.popupAvatar);
 popupAvatar.setEventListeners();
-
-function renderLoading(popup, isProcess, buttonSubmitText) {
-  const buttonSubmit = popup.querySelector(params.submitButtonSelector);
-  if (isProcess) {
-    buttonSubmit.textContent = "Сохранение...";
-  } else {
-    buttonSubmit.textContent = buttonSubmitText;
-  }
-};
 
 function handleSubmitAvatar(evt, link, buttonSubmitText) {
   evt.preventDefault();
-  renderLoading(avatarPopup, true, buttonSubmitText)
+  popupAvatar.renderLoading(true);
   api.setAvatar(link)
     .then(({ avatar }) => {
       userInfo.renderAvatar(avatar)
     })
     .then(() => {
+      popupAvatar.renderLoading(false);
       popupAvatar.close()
-      renderLoading(avatarPopup, false, buttonSubmitText)
     })
     .catch((error) => isError(error))
 }
 
-const popupWithImage = new PopupWithImage('#popup-img');
+const popupWithImage = new PopupWithImage(params.popupImg);
 popupWithImage.setEventListeners();
 
 function handleOpenPopupConfirm(card) {
@@ -92,7 +78,7 @@ function handleOpenPopupConfirm(card) {
 
 const popupConfirmDeleteCard = new PopupConfirm(
   handleSubmitDeleteCard,
-  '#popup-delete',
+  params.popupDelete,
 );
 
 popupConfirmDeleteCard.setEventListeners();
@@ -131,18 +117,18 @@ function addCard(card) {
   cardsList.prepend(card);
 }
 
-const popupAddCard = new PopupWithForm(handleSubmitCard, '#popup-add');
+const popupAddCard = new PopupWithForm(handleSubmitCard, params.popupAdd);
  
 function handleSubmitCard(evt, data, buttonSubmitText) {
   evt.preventDefault();
-  renderLoading(cardAdd, true, buttonSubmitText)
+  popupAddCard.renderLoading(true);
   api.setCard(data)
     .then((data) => {
       addCard(createCard(data));
     })
     .then(() => {
+      popupAddCard.renderLoading(false);
       popupAddCard.close();
-      renderLoading(cardAdd, false, buttonSubmitText);
     })
     .catch((error) => isError(error))
 };
@@ -156,18 +142,18 @@ function openPopupCard() {
 
 profileAdd.addEventListener('click', openPopupCard);
 
-const popupEditProfile = new PopupWithForm(handleSubmitProfile, '#popup-profile');
+const popupEditProfile = new PopupWithForm(handleSubmitProfile, params.popupProfile);
 
 function handleSubmitProfile(evt, data, buttonSubmitText) {
   evt.preventDefault();
-  renderLoading(popupProfile, true, buttonSubmitText)
+  popupEditProfile.renderLoading(true)
   api.setUserInfo(data)
     .then((data) => {
       userInfo.setUserInfo(data)
     })
     .then(() => {
+      popupAvatar.renderLoading(false);
       popupEditProfile.close();
-      renderLoading(popupProfile, false, buttonSubmitText);
     })
     .catch((error) => isError(error))
 };
